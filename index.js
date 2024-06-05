@@ -48,7 +48,7 @@ ws.on("message", (event) => {
   }
   else if (utterance.event === "transcript" && utterance.transcription) {
     console.log(`\n* Transcription: ${utterance.transcription} *\n`)
-    if (utterance.transcription.toLowerCase().includes("alexa")) {
+    if (utterance.transcription.toLowerCase().includes("nova")) {
       console.log(`\n* Trigger word detected *\n`)
     }
   } else if (utterance.event === "error") {
