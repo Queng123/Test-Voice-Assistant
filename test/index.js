@@ -21,7 +21,7 @@ const MODEL = 'llama3';
 const llm = new ChatOllama({
   baseUrl: OLLAMA_URL,
   model: MODEL,
-  temperature: 5,
+  temperature: 0.1,
 });
 
 // create pre filtre using LLAMA and after analyse with GPT
