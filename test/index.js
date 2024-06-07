@@ -5,9 +5,15 @@ import {
 
 
 const commandList = [
-  "play music: $musicTitle",
-  "stop music",
-  "other command",
+  "1. play music",
+  "2. stop music",
+  "3. pause music",
+  "4. resume music",
+  "5. connected devices",
+  "6. volume",
+  "7. alarm",
+  "8. date and time",
+  "9. need internet",
 ];
 
 const OLLAMA_URL = 'http://localhost:11434';
@@ -22,10 +28,10 @@ const llm = new ChatOllama({
 
 const template = PromptTemplate.fromTemplate(`
 voici ma demande utilisateur: "{command}"
-Identifie dans la liste suite de quelle type de demande il s'agit: {commandList}
-si tu selectionnes un element de la liste avec un paramètre, remplie ce paramètre avec la demande utilisateur. Si tu ne sait pas quel argument mettre, réponds "je ne sais pas"
-Tu n'as l'autorisation de répondre seulement un seul élément de la liste en complétant ses arguments (ou dire je ne sais pas), ne rajoute aucun autre élement a ta réponse
-Reponse:
+Identifie dans la liste suivante de quelle type de demande il s'agit: {commandList}
+réponds seulement par le numéro de la commande, ou "0" si la commande n'est pas dans la liste.
+exemple: commande "joue Bohemian Rhapsody" -> réponse "1"
+Réponse:
 `);
 
 const chain = template.pipe(llm);
@@ -39,7 +45,7 @@ async function classifyCommand(command) {
   return result.content;
 }
 
-const commandToClassify = "peux tu lancer Too Sweat de Hozier ?";
+const commandToClassify = "peux tu me donner le vainqueur de la coupe du monde 2022 ?";
 classifyCommand(commandToClassify).then(result => {
   console.log(`The command type is: ${result}`);
 });
